@@ -1,80 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Expense Tracker</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WanderWave – Travel Planner</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>💰 Expense Tracker</h1>
-    </header>
 
-    <main>
-      <section class="form-section">
-        <h2>Add New Expense</h2>
-        <form id="expenseForm">
-          <div class="form-group">
-            <label for="description">Description</label>
-            <input 
-              type="text" 
-              id="description" 
-              name="description" 
-              placeholder="e.g., Groceries, Gas, Dinner"
-              required
-            >
-          </div>
-          <div class="form-group">
-            <label for="amount">Amount ($)</label>
-            <input 
-              type="number" 
-              id="amount" 
-              name="amount" 
-              placeholder="0.00" 
-              step="0.01"
-              min="0"
-              required
-            >
-          </div>
-          <div class="form-group">
-            <label for="date">Date</label>
-            <input 
-              type="date" 
-              id="date" 
-              name="date"
-              required
-            >
-          </div>
-          <button type="submit" class="btn-submit">Add Expense</button>
-        </form>
-      </section>
+  <!-- ── NAVBAR ── -->
+  <nav class="navbar">
+    <div class="nav-logo">
+      <i class="fa-solid fa-plane-departure"></i>
+      <span>WanderWave</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#destinations">Destinations</a></li>
+      <li><a href="#planner">My Trips</a></li>
+      <li><a href="#packing">Packing</a></li>
+    </ul>
+    <button class="nav-cta" onclick="scrollToSection('planner')">Plan a Trip</button>
+    <div class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></div>
+  </nav>
 
-      <section class="table-section">
-        <h2>Recent Expenses</h2>
-        <table class="expenses-table">
-          <thead>
-            <tr>
-              <th>Description</th>
-              <th>Amount</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody id="expensesList">
-            <!-- Expenses will be populated here -->
-          </tbody>
-          <tfoot>
-            <tr class="total-row">
-              <td>Total</td>
-              <td id="totalAmount" class="total-amount">$0.00</td>
-              <td></td>
-            </tr>
-          </tfoot>
-        </table>
-      </section>
-    </main>
-  </div>
+  <!-- ── HERO ── -->
+  <section class="hero" id="home">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-tag"><i class="fa-solid fa-fire"></i> #1 Travel Planner</p>
+      <h1>Discover Your Next<br /><span class="gradient-text">Adventure</span></h1>
+      <p class="hero-sub">Plan, organise, and explore the world — all in one place.</p>
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="heroSearch" placeholder="Search a destination…" />
+        <button onclick="searchDestination()">Explore</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span>500+</span><p>Destinations</p></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span>120K+</span><p>Travellers</p></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span>4.9★</span><p>Rating</p></div>
+      </div>
+    </div>
+    <div class="hero-image-wrapper">
+      <div class="hero-card floating">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=420&q=80" alt="Beach" />
+        <div class="hero-card-tag"><i class="fa-solid fa-location-dot"></i> Maldives</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── POPULAR DESTINATIONS ── -->
+  <section class="section" id="destinations">
+    <div class="section-header">
+      <p class="section-tag">Trending Now</p>
+      <h2>Popular Destinations</h2>
+      <p class="section-sub">Hand-picked locations loved by our community</p>
+    </div>
+    <div class="destinations-grid" id="destinationsGrid"></div>
+  </section>
+
+  <!-- ── TRIP PLANNER ── -->
+  <section class="section planner-section" id="planner">
+    <div class="section-header">
+      <p class="section-tag">Organise Your Journey</p>
+      <h2>My Trip Planner</h2>
+      <p class="section-sub">Add destinations, set dates, and track your budget</p>
+    </div>
+
+    <div class="planner-layout">
+      <!-- Add Trip Form -->
+      <div class="planner-form-card">
+        <h3><i class="fa-solid fa-plus-circle"></i> Add a New Trip</h3>
+        <div class="form-group">
+          <label>Destination</label>
+          <input type="text" id="tripDest" placeholder="e.g. Paris, France" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Start Date</label>
+            <input type="date" id="tripStart" />
+          </div>
+          <div class="form-group">
+            <label>End Date</label>
+            <input type="date" id="tripEnd" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Budget (USD)</label>
+          <input type="number" id="tripBudget" placeholder="e.g. 2000" min="0" />
+        </div>
+        <div class="form-group">
+          <label>Notes</label>
+          <textarea id="tripNotes" placeholder="Visa requirements, hotel ideas, must-see spots…" rows="3"></textarea>
+        </div>
+        <button class="btn-primary full-width" onclick="addTrip()">
+          <i class="fa-solid fa-paper-plane"></i> Add Trip
+        </button>
+      </div>
+
+      <!-- Trip Cards List -->
+      <div class="trips-list" id="tripsList">
+        <div class="empty-state" id="emptyState">
+          <i class="fa-solid fa-map-location-dot"></i>
+          <p>No trips yet. Add your first adventure!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ITINERARY BUILDER ── -->
+  <section class="section itinerary-section" id="itinerary">
+    <div class="section-header">
+      <p class="section-tag">Day-by-Day</p>
+      <h2>Itinerary Builder</h2>
+      <p class="section-sub">Plan every moment of your journey</p>
+    </div>
+    <div class="itinerary-layout">
+      <div class="itinerary-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Day</label>
+            <input type="number" id="iDay" placeholder="1" min="1" />
+          </div>
+          <div class="form-group" style="flex:3">
+            <label>Activity / Event</label>
+            <input type="text" id="iActivity" placeholder="e.g. Visit Eiffel Tower" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Time</label>
+            <input type="time" id="iTime" />
+          </div>
+          <div class="form-group" style="flex:3">
+            <label>Location / Note</label>
+            <input type="text" id="iNote" placeholder="e.g. Champ de Mars, Paris" />
+          </div>
+        </div>
+        <button class="btn-primary" onclick="addItinerary()">
+          <i class="fa-solid fa-calendar-plus"></i> Add to Itinerary
+        </button>
+      </div>
+      <div class="itinerary-timeline" id="itineraryList">
+        <div class="empty-state" id="iEmpty">
+          <i class="fa-solid fa-calendar-days"></i>
+          <p>Your itinerary is empty. Start planning!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PACKING LIST ── -->
+  <section class="section packing-section" id="packing">
+    <div class="section-header">
+      <p class="section-tag">Travel Essentials</p>
+      <h2>Packing List</h2>
+      <p class="section-sub">Never forget a thing with your smart checklist</p>
+    </div>
+    <div class="packing-layout">
+      <div class="packing-add">
+        <div class="packing-input-row">
+          <input type="text" id="packItem" placeholder="Add an item (e.g. Passport)" />
+          <select id="packCategory">
+            <option value="Essential">Essential</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Toiletries">Toiletries</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Other">Other</option>
+          </select>
+          <button class="btn-primary" onclick="addPackItem()"><i class="fa-solid fa-plus"></i></button>
+        </div>
+        <div class="quick-add">
+          <p>Quick Add:</p>
+          <div class="quick-tags" id="quickTags"></div>
+        </div>
+      </div>
+      <div class="packing-progress">
+        <div class="progress-info">
+          <span id="packCount">0 / 0 packed</span>
+          <span id="packPercent">0%</span>
+        </div>
+        <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill"></div></div>
+      </div>
+      <div class="packing-list" id="packingList">
+        <div class="empty-state" id="packEmpty">
+          <i class="fa-solid fa-suitcase-rolling"></i>
+          <p>Your packing list is empty. Add some items!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TIPS SECTION ── -->
+  <section class="section tips-section">
+    <div class="section-header">
+      <p class="section-tag">Pro Advice</p>
+      <h2>Travel Tips</h2>
+    </div>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-icon"><i class="fa-solid fa-passport"></i></div>
+        <h4>Documents First</h4>
+        <p>Always carry digital copies of your passport, visa, and insurance documents in the cloud.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon"><i class="fa-solid fa-money-bill-wave"></i></div>
+        <h4>Budget Smart</h4>
+        <p>Set a daily spending limit and use a travel-friendly credit card to avoid foreign transaction fees.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon"><i class="fa-solid fa-wifi"></i></div>
+        <h4>Stay Connected</h4>
+        <p>Purchase a local SIM card or an eSIM plan before you land for cheaper data access.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <h4>Travel Insurance</h4>
+        <p>Never skip travel insurance. It covers medical emergencies, trip cancellations, and lost baggage.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <i class="fa-solid fa-plane-departure"></i>
+        <span>WanderWave</span>
+        <p>Your journey starts here. Dream big, plan smart, travel far.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#destinations">Destinations</a></li>
+          <li><a href="#planner">My Trips</a></li>
+          <li><a href="#packing">Packing</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Travel Guides</a></li>
+          <li><a href="#">Visa Info</a></li>
+          <li><a href="#">Currency Tools</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-social">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 WanderWave. All rights reserved. Made with <i class="fa-solid fa-heart"></i> for travellers.</p>
+    </div>
+  </footer>
 
   <script src="script.js"></script>
 </body>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WanderWave – Travel Planner</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- ░░ NAVBAR ░░ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <span class="logo-icon">✈</span>
+        <span class="logo-text">WanderWave</span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#destinations">Destinations</a></li>
+        <li><a href="#features">Why Us</a></li>
+        <li><a href="#planner">Planner</a></li>
+        <li><a href="#packages">Packages</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="btn-nav" onclick="document.getElementById('planner').scrollIntoView({behavior:'smooth'})">Plan a Trip</button>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ░░ HERO ░░ -->
+  <section class="hero" id="home">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-tag">✈ YOUR DREAM JOURNEY STARTS HERE</div>
+      <h1 class="hero-title">
+        Explore the World<br/>
+        <span>Your Way</span>
+      </h1>
+      <p class="hero-sub">Discover breathtaking destinations, plan unforgettable itineraries,<br/>and travel smarter with WanderWave.</p>
+
+      <!-- Search Box -->
+      <div class="search-box">
+        <div class="search-field">
+          <label>Where to?</label>
+          <input type="text" id="destInput" placeholder="Paris, Bali, Tokyo…"/>
+        </div>
+        <div class="search-field">
+          <label>Departure</label>
+          <input type="date" id="departDate"/>
+        </div>
+        <div class="search-field">
+          <label>Return</label>
+          <input type="date" id="returnDate"/>
+        </div>
+        <div class="search-field">
+          <label>Travelers</label>
+          <select>
+            <option>1 Adult</option>
+            <option>2 Adults</option>
+            <option>Family (4)</option>
+            <option>Group (6+)</option>
+          </select>
+        </div>
+        <button class="btn-search" onclick="handleSearch()">🔍 Search</button>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="hero-stats">
+      <div class="stat"><h3>500+</h3><p>Destinations</p></div>
+      <div class="stat"><h3>12K+</h3><p>Happy Travelers</p></div>
+      <div class="stat"><h3>98%</h3><p>Satisfaction</p></div>
+      <div class="stat"><h3>24/7</h3><p>Support</p></div>
+    </div>
+  </section>
+
+  <!-- ░░ DESTINATIONS ░░ -->
+  <section id="destinations">
+    <div class="section">
+      <div class="section-header">
+        <span class="section-tag">🌍 Explore</span>
+        <h2>Popular Destinations</h2>
+        <p class="section-sub">Hand-picked destinations loved by thousands of travelers worldwide</p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="filter-tabs">
+        <button class="tab active" onclick="filterDestinations('all', this)">🌐 All</button>
+        <button class="tab" onclick="filterDestinations('europe', this)">🏰 Europe</button>
+        <button class="tab" onclick="filterDestinations('asia', this)">🏯 Asia</button>
+        <button class="tab" onclick="filterDestinations('americas', this)">🗽 Americas</button>
+        <button class="tab" onclick="filterDestinations('africa', this)">🌍 Africa</button>
+      </div>
+
+      <div class="destinations-grid" id="destinationsGrid">
+        <!-- Rendered by JS -->
+      </div>
+      <div class="center-btn">
+        <button class="btn-outline" onclick="loadMoreDestinations()">View All Destinations →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ FEATURES ░░ -->
+  <section id="features">
+    <div class="section features">
+      <div class="section-header">
+        <span class="section-tag">⚡ Why WanderWave</span>
+        <h2>Travel Planning Made Easy</h2>
+        <p class="section-sub">Everything you need for the perfect trip, all in one place</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🗺️</div>
+          <h3>Smart Itinerary Builder</h3>
+          <p>Drag-and-drop day planner with local tips, opening hours, and optimized routes between attractions.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💰</div>
+          <h3>Budget Tracker</h3>
+          <p>Track every expense in real time. Set daily budgets and get alerts before you overspend.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🤝</div>
+          <h3>Group Planning</h3>
+          <p>Collaborate with friends and family. Everyone votes, comments, and stays on the same page.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌤️</div>
+          <h3>Live Weather Updates</h3>
+          <p>Real-time weather forecasts for every stop on your itinerary so you always pack right.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🏨</div>
+          <h3>Hotel & Flight Deals</h3>
+          <p>Exclusive partner rates on flights, hotels, and experiences – saving you up to 40% off.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3>Offline Access</h3>
+          <p>Download your itinerary for offline use. Maps, tickets, and bookings — always at hand.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ TRIP PLANNER ░░ -->
+  <section id="planner" class="planner-section">
+    <div class="section-header light" style="max-width:900px;margin:0 auto 40px;">
+      <span class="section-tag" style="background:rgba(255,255,255,.2);color:#FCBF49">📋 Plan Your Trip</span>
+      <h2>Build Your Itinerary</h2>
+      <p class="section-sub">Add activities day by day and watch your perfect trip take shape</p>
+    </div>
+
+    <div class="planner-container">
+      <!-- Form -->
+      <div class="planner-form">
+        <h3>➕ Add Activity</h3>
+        <div class="form-group">
+          <label>Day</label>
+          <select id="actDay">
+            <option>Day 1</option>
+            <option>Day 2</option>
+            <option>Day 3</option>
+            <option>Day 4</option>
+            <option>Day 5</option>
+            <option>Day 6</option>
+            <option>Day 7</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Time</label>
+          <input type="time" id="actTime" value="09:00"/>
+        </div>
+        <div class="form-group">
+          <label>Activity Name *</label>
+          <input type="text" id="actName" placeholder="e.g. Visit Eiffel Tower"/>
+        </div>
+        <div class="form-group">
+          <label>Category</label>
+          <select id="actCategory">
+            <option value="🏛️">🏛️ Sightseeing</option>
+            <option value="🍽️">🍽️ Food & Dining</option>
+            <option value="🏨">🏨 Accommodation</option>
+            <option value="✈️">✈️ Transport</option>
+            <option value="🏖️">🏖️ Beach / Nature</option>
+            <option value="🛍️">🛍️ Shopping</option>
+            <option value="🎭">🎭 Entertainment</option>
+            <option value="💆">💆 Wellness</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Notes (optional)</label>
+          <textarea id="actNotes" placeholder="Booking reference, address, tips…"></textarea>
+        </div>
+        <button class="btn-primary" onclick="addActivity()">➕ Add to Itinerary</button>
+      </div>
+
+      <!-- Timeline -->
+      <div class="planner-timeline" id="plannerTimeline">
+        <div class="timeline-placeholder">
+          <span>📋</span>
+          <p>Your itinerary will appear here.<br/>Start adding activities!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ PACKAGES ░░ -->
+  <section id="packages">
+    <div class="section">
+      <div class="section-header">
+        <span class="section-tag">🎒 Packages</span>
+        <h2>Choose Your Plan</h2>
+        <p class="section-sub">Transparent pricing with everything you need included</p>
+      </div>
+      <div class="packages-grid">
+
+        <!-- Starter -->
+        <div class="package-card">
+          <div class="package-badge">STARTER</div>
+          <div class="package-icon">🌱</div>
+          <h3>Explorer</h3>
+          <div class="package-price">$0<span>/month</span></div>
+          <ul class="package-features">
+            <li>✅ Up to 3 trips</li>
+            <li>✅ Basic itinerary builder</li>
+            <li>✅ Destination guides</li>
+            <li>✅ Weather forecasts</li>
+            <li>❌ Offline access</li>
+            <li>❌ Group planning</li>
+            <li>❌ Budget tracker</li>
+          </ul>
+          <button class="btn-outline" onclick="selectPackage('Explorer')">Get Started Free</button>
+        </div>
+
+        <!-- Pro (featured) -->
+        <div class="package-card featured">
+          <div class="package-badge">MOST POPULAR</div>
+          <div class="package-icon">🚀</div>
+          <h3>Adventurer</h3>
+          <div class="package-price">$9<span>/month</span></div>
+          <ul class="package-features">
+            <li>✅ Unlimited trips</li>
+            <li>✅ Advanced itinerary builder</li>
+            <li>✅ All destination guides</li>
+            <li>✅ Real-time weather</li>
+            <li>✅ Offline access</li>
+            <li>✅ Group planning (up to 6)</li>
+            <li>✅ Budget tracker</li>
+          </ul>
+          <button class="btn-white" onclick="selectPackage('Adventurer')">Start 14-Day Free Trial</button>
+        </div>
+
+        <!-- Enterprise -->
+        <div class="package-card">
+          <div class="package-badge">BUSINESS</div>
+          <div class="package-icon">🏆</div>
+          <h3>Globetrotter</h3>
+          <div class="package-price">$29<span>/month</span></div>
+          <ul class="package-features">
+            <li>✅ Everything in Adventurer</li>
+            <li>✅ Unlimited group size</li>
+            <li>✅ Priority 24/7 support</li>
+            <li>✅ Exclusive hotel deals</li>
+            <li>✅ Concierge service</li>
+            <li>✅ Custom branding</li>
+            <li>✅ API access</li>
+          </ul>
+          <button class="btn-outline" onclick="selectPackage('Globetrotter')">Go Premium</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ TESTIMONIALS ░░ -->
+  <section id="testimonials">
+    <div class="section testimonials">
+      <div class="section-header">
+        <span class="section-tag">💬 Reviews</span>
+        <h2>What Travelers Say</h2>
+        <p class="section-sub">Real stories from our community of explorers</p>
+      </div>
+
+      <div class="testimonials-track" id="testimonialsTrack">
+
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"WanderWave made planning our honeymoon to Bali so effortless. The itinerary builder is incredible — we had every day perfectly mapped out!"</p>
+          <div class="reviewer">
+            <img src="https://i.pravatar.cc/100?img=47" alt="Sofia"/>
+            <div>
+              <strong>Sofia Martinez</strong>
+              <span>🇧🇷 Bali, Indonesia</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"I planned a 10-day Japan trip for 6 friends and WanderWave kept us all aligned. The group planning feature is a game changer!"</p>
+          <div class="reviewer">
+            <img src="https://i.pravatar.cc/100?img=12" alt="James"/>
+            <div>
+              <strong>James Okafor</strong>
+              <span>🇬🇧 Tokyo, Japan</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="stars">★★★★☆</div>
+          <p>"The budget tracker saved me from overspending in Paris. Real-time alerts and the currency converter are lifesavers for solo travelers."</p>
+          <div class="reviewer">
+            <img src="https://i.pravatar.cc/100?img=33" alt="Anika"/>
+            <div>
+              <strong>Anika Patel</strong>
+              <span>🇮🇳 Paris, France</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Booked 3 family vacations through WanderWave this year. The offline access meant we never got lost even in remote areas of Morocco!"</p>
+          <div class="reviewer">
+            <img src="https://i.pravatar.cc/100?img=58" alt="Lisa"/>
+            <div>
+              <strong>Lisa Nakamura</strong>
+              <span>🇯🇵 Marrakech, Morocco</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"The exclusive hotel deals alone paid for my Adventurer subscription 10x over. The customer support team is also absolutely brilliant."</p>
+          <div class="reviewer">
+            <img src="https://i.pravatar.cc/100?img=22" alt="Carlos"/>
+            <div>
+              <strong>Carlos Silva</strong>
+              <span>🇵🇹 Santorini, Greece</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="testimonial-dots" id="testimonialDots"></div>
+    </div>
+  </section>
+
+  <!-- ░░ NEWSLETTER ░░ -->
+  <section class="newsletter" id="contact">
+    <div class="newsletter-content">
+      <div class="newsletter-text">
+        <h2>✈️ Get Travel Inspiration</h2>
+        <p>Weekly destination guides, exclusive deals, and packing tips delivered to your inbox.</p>
+      </div>
+      <form class="newsletter-form" onsubmit="handleSubscribe(event)">
+        <input type="email" placeholder="your@email.com" required/>
+        <button type="submit" class="btn-primary">Subscribe Free</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <span class="logo-icon">✈</span>
+          <span class="logo-text">WanderWave</span>
+        </div>
+        <p>Your intelligent travel companion. Plan, explore, and experience the world like never before.</p>
+        <div class="social-links">
+          <a href="#" title="Facebook">📘</a>
+          <a href="#" title="Twitter">🐦</a>
+          <a href="#" title="Instagram">📸</a>
+          <a href="#" title="YouTube">▶️</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Discover</h4>
+        <ul>
+          <li><a href="#">Popular Destinations</a></li>
+          <li><a href="#">Beach Getaways</a></li>
+          <li><a href="#">Adventure Trips</a></li>
+          <li><a href="#">City Breaks</a></li>
+          <li><a href="#">Luxury Travel</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Partners</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Cookie Settings</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 WanderWave Travel Planner. All rights reserved. Made with ❤️ for explorers.</p>
+    </div>
+  </footer>
+
+  <!-- ░░ TOAST ░░ -->
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

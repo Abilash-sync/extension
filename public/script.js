@@ -1,80 +1,55 @@
-const expensesList = document.getElementById('expensesList');
-const totalAmount = document.getElementById('totalAmount');
-const expenseForm = document.getElementById('expenseForm');
+const tripForm = document.getElementById('tripForm');
+const tripList = document.getElementById('tripList');
+const stopCount = document.getElementById('stopCount');
 
-let expenses = [];
+const trips = [];
 
-// Fetch and display expenses on page load
-async function loadExpenses() {
-  try {
-    const response = await fetch('/api/expenses');
-    expenses = await response.json();
-    renderExpenses();
-  } catch (error) {
-    console.error('Error loading expenses:', error);
-  }
+function formatDate(dateValue) {
+  return new Date(dateValue).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+  });
 }
 
-function renderExpenses() {
-  expensesList.innerHTML = '';
-  
-  if (expenses.length === 0) {
-    expensesList.innerHTML = '<tr><td colspan="3" class="empty-state"><p>No expenses yet. Add one to get started!</p></td></tr>';
-    totalAmount.textContent = '$0.00';
+function renderTrips() {
+  tripList.innerHTML = '';
+
+  if (trips.length === 0) {
+    tripList.innerHTML = '<li class="empty-state">No stops added yet. Start planning your adventure.</li>';
+    stopCount.textContent = '0 stops';
     return;
   }
 
-  let total = 0;
-  expenses.forEach(expense => {
-    total += expense.amount;
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${expense.description}</td>
-      <td>$${expense.amount.toFixed(2)}</td>
-      <td>${formatDate(expense.date)}</td>
+  trips.forEach((trip) => {
+    const tripItem = document.createElement('li');
+    tripItem.className = 'trip-item';
+    tripItem.innerHTML = `
+      <h3>${trip.destination}</h3>
+      <p><strong>Dates:</strong> ${formatDate(trip.startDate)} - ${formatDate(trip.endDate)}</p>
+      <p><strong>Top Activity:</strong> ${trip.activity}</p>
     `;
-    expensesList.appendChild(row);
+    tripList.appendChild(tripItem);
   });
 
-  totalAmount.textContent = `$${total.toFixed(2)}`;
+  stopCount.textContent = `${trips.length} stop${trips.length === 1 ? '' : 's'}`;
 }
 
-function formatDate(dateString) {
-  const options = { year: 'numeric', month: 'short', day: 'numeric' };
-  return new Date(dateString).toLocaleDateString('en-US', options);
-}
+tripForm.addEventListener('submit', (event) => {
+  event.preventDefault();
 
-// Handle form submission
-expenseForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
+  const destination = document.getElementById('destination').value.trim();
+  const startDate = document.getElementById('startDate').value;
+  const endDate = document.getElementById('endDate').value;
+  const activity = document.getElementById('activity').value.trim();
 
-  const description = document.getElementById('description').value;
-  const amount = document.getElementById('amount').value;
-  const date = document.getElementById('date').value;
-
-  try {
-    const response = await fetch('/api/expenses', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ description, amount, date })
-    });
-
-    if (response.ok) {
-      const newExpense = await response.json();
-      expenses.push(newExpense);
-      renderExpenses();
-      expenseForm.reset();
-      // Reset date to today
-      document.getElementById('date').valueAsDate = new Date();
-    }
-  } catch (error) {
-    console.error('Error adding expense:', error);
+  if (endDate < startDate) {
+    return;
   }
+
+  trips.push({ destination, startDate, endDate, activity });
+  renderTrips();
+  tripForm.reset();
 });
 
-// Initialize on load
-loadExpenses();
-// Set date input default to today
-document.getElementById('date').valueAsDate = new Date();
+renderTrips();

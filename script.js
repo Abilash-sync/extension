@@ -1,117 +1,284 @@
-/* =============================================
+/* ═══════════════════════════════════════════════════
    WANDERWAVE – script.js
-   ============================================= */
+   ═══════════════════════════════════════════════════ */
 
-/* ── Destination Data ── */
+/* ──────────────────────────────────────
+   DATA
+────────────────────────────────────── */
 const destinations = [
-  { name: "Paris", country: "France", category: "europe", emoji: "🗼", price: "From $799", rating: "⭐ 4.9", color: "#D62828", img: "https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?w=600&q=80" },
-  { name: "Bali", country: "Indonesia", category: "asia", emoji: "🌴", price: "From $649", rating: "⭐ 4.8", color: "#F77F00", img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80" },
-  { name: "New York", country: "USA", category: "americas", emoji: "🗽", price: "From $899", rating: "⭐ 4.7", color: "#E85D04", img: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600&q=80" },
-  { name: "Tokyo", country: "Japan", category: "asia", emoji: "⛩️", price: "From $1,099", rating: "⭐ 4.9", color: "#D62828", img: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600&q=80" },
-  { name: "Santorini", country: "Greece", category: "europe", emoji: "🏛️", price: "From $999", rating: "⭐ 4.8", color: "#F77F00", img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80" },
-  { name: "Marrakech", country: "Morocco", category: "africa", emoji: "🕌", price: "From $549", rating: "⭐ 4.6", color: "#E85D04", img: "https://images.unsplash.com/photo-1597212618440-806262de4f6b?w=600&q=80" },
-  { name: "Machu Picchu", country: "Peru", category: "americas", emoji: "🏔️", price: "From $1,199", rating: "⭐ 5.0", color: "#D62828", img: "https://images.unsplash.com/photo-1526392060635-9d6019884377?w=600&q=80" },
-  { name: "Dubai", country: "UAE", category: "asia", emoji: "🏙️", price: "From $849", rating: "⭐ 4.7", color: "#F77F00", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80" },
+  {
+    id: 1, name: "Paris", country: "France 🇫🇷",
+    region: "europe", price: "from $699",
+    rating: "⭐ 4.9 (2.4k)", emoji: "🗼",
+    img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=80"
+  },
+  {
+    id: 2, name: "Bali", country: "Indonesia 🇮🇩",
+    region: "asia", price: "from $549",
+    rating: "⭐ 4.8 (3.1k)", emoji: "🌴",
+    img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80"
+  },
+  {
+    id: 3, name: "New York", country: "USA 🇺🇸",
+    region: "americas", price: "from $799",
+    rating: "⭐ 4.7 (4.2k)", emoji: "🗽",
+    img: "https://images.unsplash.com/photo-1490644658840-3f2e3f8c5625?w=600&q=80"
+  },
+  {
+    id: 4, name: "Tokyo", country: "Japan 🇯🇵",
+    region: "asia", price: "from $899",
+    rating: "⭐ 4.9 (1.9k)", emoji: "🏯",
+    img: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600&q=80"
+  },
+  {
+    id: 5, name: "Santorini", country: "Greece 🇬🇷",
+    region: "europe", price: "from $749",
+    rating: "⭐ 4.8 (2.0k)", emoji: "🏛️",
+    img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80"
+  },
+  {
+    id: 6, name: "Marrakech", country: "Morocco 🇲🇦",
+    region: "africa", price: "from $449",
+    rating: "⭐ 4.6 (1.2k)", emoji: "🕌",
+    img: "https://images.unsplash.com/photo-1539020140153-e479b8c22e70?w=600&q=80"
+  },
+  {
+    id: 7, name: "Machu Picchu", country: "Peru 🇵🇪",
+    region: "americas", price: "from $999",
+    rating: "⭐ 4.9 (980)", emoji: "🏔️",
+    img: "https://images.unsplash.com/photo-1526392060635-9d6019884377?w=600&q=80"
+  },
+  {
+    id: 8, name: "Maldives", country: "Maldives 🇲🇻",
+    region: "asia", price: "from $1299",
+    rating: "⭐ 5.0 (765)", emoji: "🌊",
+    img: "https://images.unsplash.com/photo-1512100356356-de1b84283e18?w=600&q=80"
+  },
+  {
+    id: 9, name: "Cape Town", country: "South Africa 🇿🇦",
+    region: "africa", price: "from $599",
+    rating: "⭐ 4.7 (1.4k)", emoji: "🦁",
+    img: "https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=600&q=80"
+  },
+  {
+    id: 10, name: "Rome", country: "Italy 🇮🇹",
+    region: "europe", price: "from $649",
+    rating: "⭐ 4.8 (3.3k)", emoji: "🏟️",
+    img: "https://images.unsplash.com/photo-1529260830199-42c24126f198?w=600&q=80"
+  },
+  {
+    id: 11, name: "Rio de Janeiro", country: "Brazil 🇧🇷",
+    region: "americas", price: "from $749",
+    rating: "⭐ 4.6 (1.8k)", emoji: "🎭",
+    img: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=600&q=80"
+  },
+  {
+    id: 12, name: "Safari Kenya", country: "Kenya 🇰🇪",
+    region: "africa", price: "from $1599",
+    rating: "⭐ 5.0 (540)", emoji: "🐘",
+    img: "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?w=600&q=80"
+  }
 ];
 
-let visibleDestinations = destinations;
-let itinerary = {};
+/* ──────────────────────────────────────
+   STATE
+────────────────────────────────────── */
+let currentFilter = "all";
+let itinerary = {};            // { "Day 1": [{...}], "Day 2": [...] }
+let visibleCount = 8;
 
-/* ── Render Destinations ── */
-function renderDestinations(list) {
-  const grid = document.getElementById('destinationsGrid');
-  grid.innerHTML = '';
+/* ──────────────────────────────────────
+   INIT
+────────────────────────────────────── */
+document.addEventListener("DOMContentLoaded", () => {
+  setMinDates();
+  renderDestinations(currentFilter);
+  setupTestimonialDots();
+  setupNavScroll();
+  setupHamburger();
+});
 
-  if (list.length === 0) {
-    grid.innerHTML = `<p style="text-align:center;color:var(--gray);grid-column:1/-1;padding:40px">No destinations found for this region.</p>`;
+/* ──────────────────────────────────────
+   DATE HELPERS
+────────────────────────────────────── */
+function setMinDates() {
+  const today = new Date().toISOString().split("T")[0];
+  const depart = document.getElementById("departDate");
+  const ret    = document.getElementById("returnDate");
+  if (depart) {
+    depart.min = today;
+    depart.value = today;
+    depart.addEventListener("change", () => { ret.min = depart.value; });
+  }
+  if (ret) ret.min = today;
+}
+
+/* ──────────────────────────────────────
+   NAVBAR — scroll & hamburger
+────────────────────────────────────── */
+function setupNavScroll() {
+  const nav = document.getElementById("navbar");
+  window.addEventListener("scroll", () => {
+    nav.classList.toggle("scrolled", window.scrollY > 50);
+  });
+}
+
+function setupHamburger() {
+  const btn   = document.getElementById("hamburger");
+  const links = document.getElementById("navLinks");
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    links.classList.toggle("open");
+    const spans = btn.querySelectorAll("span");
+    if (links.classList.contains("open")) {
+      spans[0].style.transform = "translateY(7px) rotate(45deg)";
+      spans[1].style.opacity   = "0";
+      spans[2].style.transform = "translateY(-7px) rotate(-45deg)";
+    } else {
+      spans[0].style.transform = "";
+      spans[1].style.opacity   = "";
+      spans[2].style.transform = "";
+    }
+  });
+  links.querySelectorAll("a").forEach(a => {
+    a.addEventListener("click", () => {
+      links.classList.remove("open");
+      btn.querySelectorAll("span").forEach(s => {
+        s.style.transform = "";
+        s.style.opacity   = "";
+      });
+    });
+  });
+}
+
+/* ──────────────────────────────────────
+   SEARCH
+────────────────────────────────────── */
+function handleSearch() {
+  const dest   = document.getElementById("destInput").value.trim();
+  const depart = document.getElementById("departDate").value;
+  const ret    = document.getElementById("returnDate").value;
+
+  if (!dest) {
+    showToast("⚠️ Please enter a destination!");
+    return;
+  }
+  if (ret && depart && ret < depart) {
+    showToast("⚠️ Return date must be after departure.");
     return;
   }
 
-  list.forEach((dest, i) => {
-    const card = document.createElement('div');
-    card.className = 'dest-card';
-    card.style.animationDelay = `${i * 0.08}s`;
+  showToast(`🔍 Searching trips to ${dest}…`);
+  setTimeout(() => {
+    showToast(`✈️ Found 24 trips to ${dest}! Scroll to explore.`);
+    document.getElementById("destinations").scrollIntoView({ behavior: "smooth" });
+  }, 1800);
+}
+
+/* ──────────────────────────────────────
+   DESTINATIONS
+────────────────────────────────────── */
+function filterDestinations(region, btn) {
+  currentFilter = region;
+  visibleCount  = 8;
+
+  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+  btn.classList.add("active");
+
+  renderDestinations(region);
+}
+
+function renderDestinations(filter) {
+  const grid    = document.getElementById("destinationsGrid");
+  const filtered = filter === "all"
+    ? destinations
+    : destinations.filter(d => d.region === filter);
+  const slice   = filtered.slice(0, visibleCount);
+
+  grid.innerHTML = "";
+  if (slice.length === 0) {
+    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:var(--gray);padding:40px">No destinations found for this region yet.</p>`;
+    return;
+  }
+
+  slice.forEach((d, i) => {
+    const card = document.createElement("div");
+    card.className = "dest-card";
+    card.style.animationDelay = `${i * 60}ms`;
+    card.style.animation = "fadeUp .5s ease both";
     card.innerHTML = `
-      <img class="dest-card-img" src="${dest.img}" alt="${dest.name}" loading="lazy" onerror="this.src='https://placehold.co/600x400/${dest.color.replace('#','')}/fff?text=${dest.name}'"/>
+      <img class="dest-card-img" src="${d.img}" alt="${d.name}" loading="lazy"/>
       <div class="dest-card-overlay"></div>
-      <div class="dest-card-emoji">${dest.emoji}</div>
+      <div class="dest-card-emoji">${d.emoji}</div>
       <div class="dest-card-body">
-        <h3>${dest.name}</h3>
+        <h3>${d.name}</h3>
+        <p class="dest-rating">${d.rating}</p>
         <div class="dest-meta">
-          <span class="dest-country">📍 ${dest.country}</span>
-          <span class="dest-price">${dest.price}</span>
+          <span class="dest-country">${d.country}</span>
+          <span class="dest-price">${d.price}</span>
         </div>
-        <div class="dest-rating">${dest.rating} · Highly rated</div>
       </div>
     `;
-    card.addEventListener('click', () => openDestination(dest));
+    card.addEventListener("click", () => bookDestination(d));
     grid.appendChild(card);
   });
 }
 
-function filterDestinations(category, btn) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-  visibleDestinations = category === 'all' ? destinations : destinations.filter(d => d.category === category);
-  renderDestinations(visibleDestinations);
-}
-
 function loadMoreDestinations() {
-  showToast('🌍 Loading all 500+ destinations...');
+  visibleCount += 4;
+  renderDestinations(currentFilter);
+  showToast("🌍 More destinations loaded!");
 }
 
-function openDestination(dest) {
-  showToast(`✈️ Exploring ${dest.name}, ${dest.country}...`);
-}
-
-/* ── Search ── */
-function handleSearch() {
-  const dest = document.getElementById('destInput').value.trim();
-  const depart = document.getElementById('departDate').value;
-  const ret = document.getElementById('returnDate').value;
-
-  if (!dest) { showToast('⚠️ Please enter a destination!'); return; }
-  if (!depart) { showToast('⚠️ Please choose a departure date!'); return; }
-
-  showToast(`🔍 Searching trips to ${dest}...`);
+function bookDestination(dest) {
+  showToast(`🗺️ Exploring ${dest.name}… Adding to planner!`);
   setTimeout(() => {
-    document.getElementById('destinations').scrollIntoView({ behavior: 'smooth' });
-    showToast(`🎉 Found ${Math.floor(Math.random() * 20) + 5} trips to ${dest}!`);
-  }, 1200);
+    document.getElementById("actName").value = `Visit ${dest.name}`;
+    document.getElementById("planner").scrollIntoView({ behavior: "smooth" });
+  }, 800);
 }
 
-/* ── Itinerary Planner ── */
+/* ──────────────────────────────────────
+   ITINERARY PLANNER
+────────────────────────────────────── */
 function addActivity() {
-  const day = document.getElementById('actDay').value;
-  const time = document.getElementById('actTime').value;
-  const name = document.getElementById('actName').value.trim();
-  const category = document.getElementById('actCategory').value;
-  const notes = document.getElementById('actNotes').value.trim();
+  const day      = document.getElementById("actDay").value;
+  const time     = document.getElementById("actTime").value;
+  const name     = document.getElementById("actName").value.trim();
+  const category = document.getElementById("actCategory").value;
+  const notes    = document.getElementById("actNotes").value.trim();
 
-  if (!name) { showToast('⚠️ Please enter an activity name!'); return; }
+  if (!name) {
+    showToast("⚠️ Please enter an activity name.");
+    return;
+  }
 
   if (!itinerary[day]) itinerary[day] = [];
+
   itinerary[day].push({ time, name, category, notes, id: Date.now() });
+
+  // Sort by time
   itinerary[day].sort((a, b) => a.time.localeCompare(b.time));
 
-  document.getElementById('actName').value = '';
-  document.getElementById('actNotes').value = '';
+  // Clear fields
+  document.getElementById("actName").value  = "";
+  document.getElementById("actNotes").value = "";
 
-  renderItinerary();
-  showToast(`✅ Added "${name}" to ${day}!`);
+  renderTimeline();
+  showToast(`✅ "${name}" added to ${day}!`);
 }
 
 function deleteActivity(day, id) {
-  itinerary[day] = itinerary[day].filter(item => item.id !== id);
+  itinerary[day] = itinerary[day].filter(a => a.id !== id);
   if (itinerary[day].length === 0) delete itinerary[day];
-  renderItinerary();
-  showToast('🗑️ Activity removed.');
+  renderTimeline();
+  showToast("🗑️ Activity removed.");
 }
 
-function renderItinerary() {
-  const container = document.getElementById('plannerTimeline');
+function renderTimeline() {
+  const container = document.getElementById("plannerTimeline");
   const days = Object.keys(itinerary).sort((a, b) => {
-    return parseInt(a.replace('Day ', '')) - parseInt(b.replace('Day ', ''));
+    return parseInt(a.replace("Day ", "")) - parseInt(b.replace("Day ", ""));
   });
 
   if (days.length === 0) {
@@ -126,174 +293,117 @@ function renderItinerary() {
   container.innerHTML = days.map(day => `
     <div class="day-group">
       <div class="day-group-header">
-        <span class="day-label">${day}</span>
+        <span class="day-label">📅 ${day}</span>
         <div class="day-line"></div>
+        <small style="color:var(--gray);font-size:.75rem">${itinerary[day].length} activit${itinerary[day].length > 1 ? "ies" : "y"}</small>
       </div>
-      ${itinerary[day].map(item => `
+      ${itinerary[day].map(act => `
         <div class="timeline-item">
-          <span class="item-time">${formatTime(item.time)}</span>
+          <span class="item-time">⏰ ${formatTime(act.time)}</span>
           <div class="item-body">
-            <div class="item-name">${item.category} ${item.name}</div>
-            ${item.notes ? `<div class="item-notes">${item.notes}</div>` : ''}
+            <div class="item-name">${act.category} ${act.name}</div>
+            ${act.notes ? `<div class="item-notes">📝 ${act.notes}</div>` : ""}
           </div>
-          <button class="item-delete" onclick="deleteActivity('${day}', ${item.id})" title="Remove">✕</button>
+          <button class="item-delete" onclick="deleteActivity('${day}', ${act.id})" title="Remove">✕</button>
         </div>
-      `).join('')}
+      `).join("")}
     </div>
-  `).join('');
+  `).join("");
 }
 
 function formatTime(t) {
-  if (!t) return '';
-  const [h, m] = t.split(':');
-  const hour = parseInt(h);
-  return `${hour > 12 ? hour - 12 : hour || 12}:${m} ${hour >= 12 ? 'PM' : 'AM'}`;
+  if (!t) return "";
+  const [h, m] = t.split(":").map(Number);
+  const ampm   = h >= 12 ? "PM" : "AM";
+  const hh     = h % 12 || 12;
+  return `${hh}:${String(m).padStart(2, "0")} ${ampm}`;
 }
 
-/* ── Packages ── */
+/* ──────────────────────────────────────
+   PACKAGES
+────────────────────────────────────── */
 function selectPackage(name) {
-  showToast(`🎒 You selected the ${name} package! Redirecting...`);
-  setTimeout(() => {
-    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-  }, 1200);
+  if (name === "Explorer") {
+    showToast("🌱 Free Explorer plan selected! Create your account.");
+  } else if (name === "Adventurer") {
+    showToast("🚀 Starting your 14-day free Adventurer trial!");
+  } else {
+    showToast("🏆 Globetrotter plan selected! Our team will contact you.");
+  }
 }
 
-/* ── Newsletter ── */
-function handleSubscribe(e) {
-  e.preventDefault();
-  const email = e.target.querySelector('input').value;
-  e.target.reset();
-  showToast(`🎉 Subscribed! Welcome aboard, ${email.split('@')[0]}!`);
-}
-
-/* ── Toast ── */
-function showToast(msg, duration = 3000) {
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.classList.add('show');
-  clearTimeout(toast._timer);
-  toast._timer = setTimeout(() => toast.classList.remove('show'), duration);
-}
-
-/* ── Navbar Scroll ── */
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 50);
-});
-
-/* ── Hamburger Menu ── */
-const hamburger = document.getElementById('hamburger');
-const navLinks = document.getElementById('navLinks');
-hamburger.addEventListener('click', () => {
-  navLinks.classList.toggle('open');
-  const open = navLinks.classList.contains('open');
-  hamburger.children[0].style.transform = open ? 'rotate(45deg) translate(5px,5px)' : '';
-  hamburger.children[1].style.opacity   = open ? '0' : '1';
-  hamburger.children[2].style.transform = open ? 'rotate(-45deg) translate(5px,-5px)' : '';
-});
-navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    navLinks.classList.remove('open');
-    hamburger.children[0].style.transform = '';
-    hamburger.children[1].style.opacity   = '1';
-    hamburger.children[2].style.transform = '';
-  });
-});
-
-/* ── Testimonial Dots ── */
+/* ──────────────────────────────────────
+   TESTIMONIALS DOTS
+────────────────────────────────────── */
 function setupTestimonialDots() {
-  const track  = document.getElementById('testimonialsTrack');
-  const dotsEl = document.getElementById('testimonialDots');
-  const cards  = track.querySelectorAll('.testimonial-card');
-  const total  = cards.length;
+  const track = document.getElementById("testimonialsTrack");
+  const dotsEl = document.getElementById("testimonialDots");
+  if (!track || !dotsEl) return;
 
-  for (let i = 0; i < total; i++) {
-    const d = document.createElement('div');
-    d.className = 'dot' + (i === 0 ? ' active' : '');
-    d.addEventListener('click', () => {
-      cards[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+  const cards = track.querySelectorAll(".testimonial-card");
+  const count = cards.length;
+
+  for (let i = 0; i < count; i++) {
+    const dot = document.createElement("button");
+    dot.className = "dot" + (i === 0 ? " active" : "");
+    dot.setAttribute("aria-label", `Go to review ${i + 1}`);
+    dot.addEventListener("click", () => {
+      cards[i].scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
     });
-    dotsEl.appendChild(d);
+    dotsEl.appendChild(dot);
   }
 
-  track.addEventListener('scroll', () => {
+  // Update active dot on scroll
+  track.addEventListener("scroll", () => {
     const scrollLeft = track.scrollLeft;
-    const cardWidth  = cards[0].offsetWidth + 24;
-    const index      = Math.round(scrollLeft / cardWidth);
-    document.querySelectorAll('#testimonialDots .dot').forEach((d, i) => {
-      d.classList.toggle('active', i === index);
-    });
+    const cardWidth  = cards[0].offsetWidth + 24; // gap
+    const idx = Math.round(scrollLeft / cardWidth);
+    dotsEl.querySelectorAll(".dot").forEach((d, i) => d.classList.toggle("active", i === idx));
   });
 }
 
-/* ── Scroll Animations ── */
-function setupScrollAnimations() {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
+/* ──────────────────────────────────────
+   NEWSLETTER
+────────────────────────────────────── */
+function handleSubscribe(e) {
+  e.preventDefault();
+  const email = e.target.querySelector("input[type=email]").value;
+  showToast(`📧 Subscribed! Welcome aboard, ${email.split("@")[0]}!`);
+  e.target.reset();
+}
 
-  document.querySelectorAll('.dest-card, .feature-card, .package-card, .testimonial-card').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity .5s ease, transform .5s ease';
+/* ──────────────────────────────────────
+   TOAST
+────────────────────────────────────── */
+let toastTimer = null;
+function showToast(msg) {
+  const toast = document.getElementById("toast");
+  toast.textContent = msg;
+  toast.classList.add("show");
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 3200);
+}
+
+/* ──────────────────────────────────────
+   SCROLL ANIMATION (IntersectionObserver)
+────────────────────────────────────── */
+const observerOpts = { threshold: 0.12 };
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity    = "1";
+      e.target.style.transform  = "translateY(0)";
+      e.target.style.transition = "opacity .6s ease, transform .6s ease";
+    }
+  });
+}, observerOpts);
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(
+    ".feature-card, .package-card, .testimonial-card, .dest-card, .stat"
+  ).forEach(el => {
+    el.style.opacity   = "0";
+    el.style.transform = "translateY(24px)";
     observer.observe(el);
   });
-}
-
-/* ── Counter Animation ── */
-function animateCounters() {
-  const stats = [
-    { el: document.querySelectorAll('.stat h3')[0], target: 500, suffix: '+' },
-    { el: document.querySelectorAll('.stat h3')[1], target: 12,  suffix: 'K+' },
-    { el: document.querySelectorAll('.stat h3')[2], target: 98,  suffix: '%' },
-    { el: document.querySelectorAll('.stat h3')[3], target: 24,  suffix: '/7' },
-  ];
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      stats.forEach(s => {
-        let current = 0;
-        const step = Math.ceil(s.target / 60);
-        const interval = setInterval(() => {
-          current = Math.min(current + step, s.target);
-          s.el.textContent = current + s.suffix;
-          if (current >= s.target) clearInterval(interval);
-        }, 20);
-      });
-      observer.disconnect();
-    });
-  }, { threshold: 0.5 });
-
-  const heroStats = document.querySelector('.hero-stats');
-  if (heroStats) observer.observe(heroStats);
-}
-
-/* ── Set default dates ── */
-function setDefaultDates() {
-  const today = new Date();
-  const next  = new Date(today);
-  next.setDate(today.getDate() + 7);
-
-  const fmt = d => d.toISOString().split('T')[0];
-  const dep = document.getElementById('departDate');
-  const ret = document.getElementById('returnDate');
-  if (dep) dep.min = fmt(today);
-  if (ret) { ret.min = fmt(today); ret.value = fmt(next); }
-  if (dep) dep.value = fmt(today);
-}
-
-/* ── Init ── */
-document.addEventListener('DOMContentLoaded', () => {
-  renderDestinations(destinations);
-  setupTestimonialDots();
-  setupScrollAnimations();
-  animateCounters();
-  setDefaultDates();
 });

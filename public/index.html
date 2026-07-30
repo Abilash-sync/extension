@@ -1,80 +1,292 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Expense Tracker</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WanderPlan – Travel Planner</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>💰 Expense Tracker</h1>
-    </header>
 
-    <main>
-      <section class="form-section">
-        <h2>Add New Expense</h2>
-        <form id="expenseForm">
-          <div class="form-group">
-            <label for="description">Description</label>
-            <input 
-              type="text" 
-              id="description" 
-              name="description" 
-              placeholder="e.g., Groceries, Gas, Dinner"
-              required
-            >
-          </div>
-          <div class="form-group">
-            <label for="amount">Amount ($)</label>
-            <input 
-              type="number" 
-              id="amount" 
-              name="amount" 
-              placeholder="0.00" 
-              step="0.01"
-              min="0"
-              required
-            >
-          </div>
-          <div class="form-group">
-            <label for="date">Date</label>
-            <input 
-              type="date" 
-              id="date" 
-              name="date"
-              required
-            >
-          </div>
-          <button type="submit" class="btn-submit">Add Expense</button>
-        </form>
-      </section>
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <span class="logo-icon">✈</span>
+        <span>WanderPlan</span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#destinations">Destinations</a></li>
+        <li><a href="#planner">Trip Planner</a></li>
+        <li><a href="#itinerary">Itinerary</a></li>
+        <li><a href="#packing">Packing List</a></li>
+        <li><a href="#budget">Budget</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
 
-      <section class="table-section">
-        <h2>Recent Expenses</h2>
-        <table class="expenses-table">
-          <thead>
-            <tr>
-              <th>Description</th>
-              <th>Amount</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody id="expensesList">
-            <!-- Expenses will be populated here -->
-          </tbody>
-          <tfoot>
-            <tr class="total-row">
-              <td>Total</td>
-              <td id="totalAmount" class="total-amount">$0.00</td>
-              <td></td>
-            </tr>
-          </tfoot>
-        </table>
-      </section>
-    </main>
-  </div>
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="home">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-tagline">✨ Your Journey Starts Here</p>
+      <h1>Plan Your <span>Dream Trip</span><br/>With Ease</h1>
+      <p class="hero-sub">Discover destinations, build itineraries, track budgets, and pack smarter — all in one place.</p>
+      <div class="hero-search">
+        <input type="text" id="heroSearch" placeholder="Search a destination (e.g. Paris, Bali, Tokyo)…" />
+        <button onclick="searchDestination()">🔍 Search</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">500+</span><span class="stat-lbl">Destinations</span></div>
+        <div class="stat"><span class="stat-num">120K</span><span class="stat-lbl">Happy Travelers</span></div>
+        <div class="stat"><span class="stat-num">4.9★</span><span class="stat-lbl">Average Rating</span></div>
+      </div>
+    </div>
+    <div class="hero-scroll-hint" onclick="document.getElementById('destinations').scrollIntoView({behavior:'smooth'})">▼ Explore Below</div>
+  </section>
+
+  <!-- ===== POPULAR DESTINATIONS ===== -->
+  <section class="section" id="destinations">
+    <div class="section-header">
+      <h2>Popular <span>Destinations</span></h2>
+      <p>Hand-picked hotspots loved by travelers worldwide</p>
+    </div>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterDest(this,'all')">All</button>
+      <button class="filter-btn" onclick="filterDest(this,'asia')">Asia</button>
+      <button class="filter-btn" onclick="filterDest(this,'europe')">Europe</button>
+      <button class="filter-btn" onclick="filterDest(this,'america')">Americas</button>
+      <button class="filter-btn" onclick="filterDest(this,'oceania')">Oceania</button>
+    </div>
+    <div class="dest-grid" id="destGrid"></div>
+  </section>
+
+  <!-- ===== TRIP PLANNER ===== -->
+  <section class="section section-alt" id="planner">
+    <div class="section-header">
+      <h2>Plan Your <span>Trip</span></h2>
+      <p>Fill in the details and build your dream vacation</p>
+    </div>
+    <div class="planner-card">
+      <div class="planner-grid">
+        <div class="form-group">
+          <label>Trip Name</label>
+          <input type="text" id="tripName" placeholder="e.g. Summer Europe Adventure" />
+        </div>
+        <div class="form-group">
+          <label>Destination</label>
+          <input type="text" id="tripDest" placeholder="e.g. Rome, Italy" />
+        </div>
+        <div class="form-group">
+          <label>Start Date</label>
+          <input type="date" id="tripStart" />
+        </div>
+        <div class="form-group">
+          <label>End Date</label>
+          <input type="date" id="tripEnd" />
+        </div>
+        <div class="form-group">
+          <label>Number of Travelers</label>
+          <input type="number" id="tripTravelers" placeholder="e.g. 2" min="1" />
+        </div>
+        <div class="form-group">
+          <label>Trip Type</label>
+          <select id="tripType">
+            <option value="">Select type…</option>
+            <option>Adventure</option>
+            <option>Relaxation</option>
+            <option>Cultural</option>
+            <option>Family</option>
+            <option>Romantic</option>
+            <option>Solo</option>
+            <option>Business</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group full-width">
+        <label>Notes / Special Requests</label>
+        <textarea id="tripNotes" placeholder="Any special requirements, preferences, or notes…" rows="3"></textarea>
+      </div>
+      <div class="planner-actions">
+        <button class="btn-primary" onclick="saveTrip()">💾 Save Trip</button>
+        <button class="btn-secondary" onclick="clearTripForm()">🗑 Clear</button>
+      </div>
+    </div>
+
+    <!-- Saved Trips -->
+    <div id="savedTripsSection" style="display:none; margin-top:2.5rem;">
+      <h3 class="sub-heading">📋 My Saved Trips</h3>
+      <div class="trips-list" id="tripsList"></div>
+    </div>
+  </section>
+
+  <!-- ===== ITINERARY BUILDER ===== -->
+  <section class="section" id="itinerary">
+    <div class="section-header">
+      <h2>Itinerary <span>Builder</span></h2>
+      <p>Plan each day of your trip in detail</p>
+    </div>
+    <div class="itinerary-container">
+      <div class="itinerary-add-bar">
+        <input type="text" id="itiDay" placeholder="Day (e.g. Day 1)" />
+        <input type="text" id="itiActivity" placeholder="Activity (e.g. Visit Eiffel Tower)" />
+        <input type="text" id="itiTime" placeholder="Time (e.g. 10:00 AM)" />
+        <input type="text" id="itiNote" placeholder="Notes (optional)" />
+        <button class="btn-primary" onclick="addItinerary()">+ Add</button>
+      </div>
+      <div id="itineraryList" class="itinerary-list">
+        <div class="empty-state">📅 No itinerary yet. Add your first activity above!</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PACKING LIST ===== -->
+  <section class="section section-alt" id="packing">
+    <div class="section-header">
+      <h2>Packing <span>List</span></h2>
+      <p>Never forget a thing — build your custom packing checklist</p>
+    </div>
+    <div class="packing-container">
+      <div class="packing-presets">
+        <h4>Quick Add Presets:</h4>
+        <div class="preset-btns">
+          <button onclick="addPreset('essentials')">📄 Essentials</button>
+          <button onclick="addPreset('clothes')">👕 Clothing</button>
+          <button onclick="addPreset('toiletries')">🧴 Toiletries</button>
+          <button onclick="addPreset('electronics')">🔌 Electronics</button>
+          <button onclick="addPreset('beach')">🏖 Beach Trip</button>
+        </div>
+      </div>
+      <div class="packing-add-bar">
+        <input type="text" id="packItem" placeholder="Add item (e.g. Sunscreen)" />
+        <select id="packCategory">
+          <option value="General">General</option>
+          <option value="Clothing">Clothing</option>
+          <option value="Toiletries">Toiletries</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Documents">Documents</option>
+          <option value="Health">Health</option>
+        </select>
+        <button class="btn-primary" onclick="addPackItem()">+ Add Item</button>
+      </div>
+      <div class="packing-stats" id="packStats">
+        <span id="packCount">0 items</span>
+        <span id="packDone">0 packed</span>
+        <div class="progress-bar"><div class="progress-fill" id="packProgress"></div></div>
+      </div>
+      <div id="packingList" class="packing-list">
+        <div class="empty-state">🎒 Start adding items to your packing list!</div>
+      </div>
+      <button class="btn-secondary" onclick="clearPacked()" style="margin-top:1rem;">🗑 Clear Packed Items</button>
+    </div>
+  </section>
+
+  <!-- ===== BUDGET TRACKER ===== -->
+  <section class="section" id="budget">
+    <div class="section-header">
+      <h2>Budget <span>Tracker</span></h2>
+      <p>Stay on top of your travel spending</p>
+    </div>
+    <div class="budget-container">
+      <div class="budget-top">
+        <div class="budget-set">
+          <label>Total Budget ($)</label>
+          <input type="number" id="totalBudget" placeholder="e.g. 3000" min="0" />
+          <button class="btn-primary" onclick="setBudget()">Set Budget</button>
+        </div>
+        <div class="budget-summary" id="budgetSummary">
+          <div class="bsum-card bsum-total"><span>Total Budget</span><strong id="bTotal">$0</strong></div>
+          <div class="bsum-card bsum-spent"><span>Spent</span><strong id="bSpent">$0</strong></div>
+          <div class="bsum-card bsum-left"><span>Remaining</span><strong id="bLeft">$0</strong></div>
+        </div>
+      </div>
+      <div class="budget-bar-wrap">
+        <div class="budget-bar"><div class="budget-fill" id="budgetFill"></div></div>
+        <span id="budgetPercent">0% used</span>
+      </div>
+      <div class="expense-add-bar">
+        <input type="text" id="expDesc" placeholder="Description (e.g. Hotel in Paris)" />
+        <input type="number" id="expAmount" placeholder="Amount ($)" min="0" />
+        <select id="expCategory">
+          <option value="🏨 Accommodation">🏨 Accommodation</option>
+          <option value="✈ Transport">✈ Transport</option>
+          <option value="🍽 Food & Dining">🍽 Food & Dining</option>
+          <option value="🎟 Activities">🎟 Activities</option>
+          <option value="🛍 Shopping">🛍 Shopping</option>
+          <option value="💊 Health">💊 Health</option>
+          <option value="📦 Miscellaneous">📦 Miscellaneous</option>
+        </select>
+        <button class="btn-primary" onclick="addExpense()">+ Add Expense</button>
+      </div>
+      <div id="expenseList" class="expense-list">
+        <div class="empty-state">💰 No expenses yet. Start tracking your spending!</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRAVEL TIPS ===== -->
+  <section class="section section-alt tips-section">
+    <div class="section-header">
+      <h2>Travel <span>Tips</span></h2>
+      <p>Smart advice for savvy travelers</p>
+    </div>
+    <div class="tips-grid">
+      <div class="tip-card"><div class="tip-icon">🛂</div><h4>Passport & Visas</h4><p>Check visa requirements at least 3 months ahead. Keep digital copies of all documents in cloud storage.</p></div>
+      <div class="tip-card"><div class="tip-icon">💳</div><h4>Money & Cards</h4><p>Notify your bank before traveling. Use a no-fee travel card and always carry some local cash.</p></div>
+      <div class="tip-card"><div class="tip-icon">🏥</div><h4>Travel Insurance</h4><p>Always buy comprehensive travel insurance. Medical emergencies abroad can be extremely costly.</p></div>
+      <div class="tip-card"><div class="tip-icon">📶</div><h4>Stay Connected</h4><p>Buy a local SIM or international eSIM. Download offline maps before departing.</p></div>
+      <div class="tip-card"><div class="tip-icon">🌤</div><h4>Check the Weather</h4><p>Research the climate of your destination and pack accordingly. Shoulder season often offers the best value.</p></div>
+      <div class="tip-card"><div class="tip-icon">🔒</div><h4>Stay Safe</h4><p>Keep valuables secure with anti-theft bags. Share your itinerary with someone at home.</p></div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="nav-logo"><span class="logo-icon">✈</span><span>WanderPlan</span></div>
+        <p>Your all-in-one travel companion. Plan smarter, travel farther, and experience more.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#destinations">Destinations</a></li>
+          <li><a href="#planner">Trip Planner</a></li>
+          <li><a href="#itinerary">Itinerary</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Features</h4>
+        <ul>
+          <li><a href="#packing">Packing List</a></li>
+          <li><a href="#budget">Budget Tracker</a></li>
+          <li><a href="#">Travel Insurance</a></li>
+          <li><a href="#">Currency Converter</a></li>
+        </ul>
+      </div>
+      <div class="footer-newsletter">
+        <h4>Stay Inspired</h4>
+        <p>Get travel tips and destination ideas straight to your inbox.</p>
+        <div class="newsletter-bar">
+          <input type="email" placeholder="your@email.com" />
+          <button>Subscribe</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 WanderPlan. Made with ❤️ for travelers everywhere.</p>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
 
   <script src="script.js"></script>
 </body>

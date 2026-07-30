@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wanderlust – Travel Planner</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- ─── NAVBAR ─── -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <i class="fas fa-paper-plane"></i>
+        <span>Wanderlust</span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#destinations">Destinations</a></li>
+        <li><a href="#planner">Trip Planner</a></li>
+        <li><a href="#packages">Packages</a></li>
+        <li><a href="#tips">Travel Tips</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="nav-cta">Book Now</button>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero" id="home">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-badge"><i class="fas fa-star"></i> #1 Travel Planning Platform</span>
+      <h1>Explore the World<br /><span class="gradient-text">Your Way</span></h1>
+      <p>Plan your dream trip with ease. Discover breathtaking destinations, craft perfect itineraries, and create memories that last a lifetime.</p>
+
+      <div class="search-box">
+        <div class="search-field">
+          <i class="fas fa-map-marker-alt"></i>
+          <input type="text" id="searchDestination" placeholder="Where do you want to go?" />
+        </div>
+        <div class="search-field">
+          <i class="fas fa-calendar-alt"></i>
+          <input type="date" id="searchDate" />
+        </div>
+        <div class="search-field">
+          <i class="fas fa-users"></i>
+          <select id="searchTravelers">
+            <option value="">Travelers</option>
+            <option>1 – Solo</option>
+            <option>2 – Couple</option>
+            <option>3–4 – Small Group</option>
+            <option>5+ – Large Group</option>
+          </select>
+        </div>
+        <button class="btn-search" onclick="handleSearch()">
+          <i class="fas fa-search"></i> Search
+        </button>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num" data-target="150">0</span><span>+</span><p>Destinations</p></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num" data-target="50">0</span><span>K+</span><p>Happy Travelers</p></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num" data-target="98">0</span><span>%</span><p>Satisfaction</p></div>
+      </div>
+    </div>
+
+    <div class="hero-floating-cards">
+      <div class="float-card fc1">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=120&h=80&fit=crop" alt="Beach" />
+        <div><strong>Maldives</strong><small>From $1,299</small></div>
+      </div>
+      <div class="float-card fc2">
+        <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=120&h=80&fit=crop" alt="City" />
+        <div><strong>Paris</strong><small>From $899</small></div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator" onclick="document.getElementById('destinations').scrollIntoView({behavior:'smooth'})">
+      <span>Scroll Down</span>
+      <div class="scroll-arrow"><i class="fas fa-chevron-down"></i></div>
+    </div>
+  </section>
+
+  <!-- ─── DESTINATIONS ─── -->
+  <section class="section destinations" id="destinations">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Explore</span>
+        <h2>Popular Destinations</h2>
+        <p>Handpicked gems from around the globe waiting to be explored</p>
+      </div>
+
+      <div class="filter-tabs">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="beach">Beach</button>
+        <button class="filter-btn" data-filter="mountain">Mountain</button>
+        <button class="filter-btn" data-filter="city">City</button>
+        <button class="filter-btn" data-filter="cultural">Cultural</button>
+      </div>
+
+      <div class="destinations-grid" id="destinationsGrid">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TRIP PLANNER ─── -->
+  <section class="section planner-section" id="planner">
+    <div class="container">
+      <div class="section-header light">
+        <span class="section-tag">Plan</span>
+        <h2>Build Your Itinerary</h2>
+        <p>Add destinations, activities and notes — day by day</p>
+      </div>
+
+      <div class="planner-wrapper">
+        <!-- Form -->
+        <div class="planner-form card">
+          <h3><i class="fas fa-plus-circle"></i> Add Activity</h3>
+          <div class="form-group">
+            <label>Day</label>
+            <input type="number" id="actDay" min="1" max="30" placeholder="e.g. 1" />
+          </div>
+          <div class="form-group">
+            <label>Destination</label>
+            <input type="text" id="actDestination" placeholder="e.g. Rome, Italy" />
+          </div>
+          <div class="form-group">
+            <label>Activity</label>
+            <input type="text" id="actActivity" placeholder="e.g. Visit the Colosseum" />
+          </div>
+          <div class="form-group">
+            <label>Time</label>
+            <input type="time" id="actTime" />
+          </div>
+          <div class="form-group">
+            <label>Notes</label>
+            <textarea id="actNotes" rows="3" placeholder="Any special notes..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <select id="actCategory">
+              <option value="sightseeing">🏛 Sightseeing</option>
+              <option value="food">🍽 Food & Dining</option>
+              <option value="adventure">🧗 Adventure</option>
+              <option value="transport">✈ Transport</option>
+              <option value="accommodation">🏨 Accommodation</option>
+              <option value="shopping">🛍 Shopping</option>
+            </select>
+          </div>
+          <button class="btn-primary full-width" onclick="addActivity()">
+            <i class="fas fa-plus"></i> Add to Itinerary
+          </button>
+        </div>
+
+        <!-- Itinerary List -->
+        <div class="itinerary-panel">
+          <div class="itinerary-header">
+            <h3><i class="fas fa-map-marked-alt"></i> My Itinerary</h3>
+            <div class="itinerary-actions">
+              <button class="btn-outline small" onclick="clearItinerary()"><i class="fas fa-trash"></i> Clear</button>
+              <button class="btn-primary small" onclick="printItinerary()"><i class="fas fa-print"></i> Print</button>
+            </div>
+          </div>
+          <div class="itinerary-list" id="itineraryList">
+            <div class="itinerary-empty">
+              <i class="fas fa-suitcase-rolling"></i>
+              <p>No activities yet. Start adding to your itinerary!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PACKAGES ─── -->
+  <section class="section packages-section" id="packages">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Deals</span>
+        <h2>Travel Packages</h2>
+        <p>Curated all-inclusive packages for every kind of traveler</p>
+      </div>
+
+      <div class="packages-grid">
+        <div class="package-card featured">
+          <div class="package-badge">Most Popular</div>
+          <div class="package-icon"><i class="fas fa-umbrella-beach"></i></div>
+          <h3>Beach Bliss</h3>
+          <p>7 nights in tropical paradise with flights, resort stay & tours</p>
+          <ul class="package-features">
+            <li><i class="fas fa-check"></i> Round-trip flights</li>
+            <li><i class="fas fa-check"></i> 5-star resort</li>
+            <li><i class="fas fa-check"></i> Island hopping tour</li>
+            <li><i class="fas fa-check"></i> All meals included</li>
+          </ul>
+          <div class="package-price"><span>$1,299</span><small>/person</small></div>
+          <button class="btn-primary full-width">Book Package</button>
+        </div>
+
+        <div class="package-card">
+          <div class="package-icon"><i class="fas fa-mountain"></i></div>
+          <h3>Mountain Escape</h3>
+          <p>5 nights of alpine adventure with guided treks & lodge stays</p>
+          <ul class="package-features">
+            <li><i class="fas fa-check"></i> Round-trip flights</li>
+            <li><i class="fas fa-check"></i> Mountain lodge</li>
+            <li><i class="fas fa-check"></i> Guided hikes</li>
+            <li><i class="fas fa-check"></i> Equipment rental</li>
+          </ul>
+          <div class="package-price"><span>$899</span><small>/person</small></div>
+          <button class="btn-primary full-width">Book Package</button>
+        </div>
+
+        <div class="package-card">
+          <div class="package-icon"><i class="fas fa-city"></i></div>
+          <h3>City Explorer</h3>
+          <p>4 nights of culture, cuisine & architecture in iconic cities</p>
+          <ul class="package-features">
+            <li><i class="fas fa-check"></i> Round-trip flights</li>
+            <li><i class="fas fa-check"></i> Boutique hotel</li>
+            <li><i class="fas fa-check"></i> City walking tours</li>
+            <li><i class="fas fa-check"></i> Museum passes</li>
+          </ul>
+          <div class="package-price"><span>$749</span><small>/person</small></div>
+          <button class="btn-primary full-width">Book Package</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TRAVEL TIPS ─── -->
+  <section class="section tips-section" id="tips">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Advice</span>
+        <h2>Travel Tips & Guides</h2>
+        <p>Expert advice to make every journey smoother</p>
+      </div>
+
+      <div class="tips-grid">
+        <div class="tip-card" onclick="toggleTip(this)">
+          <div class="tip-icon"><i class="fas fa-passport"></i></div>
+          <div class="tip-content">
+            <h4>Documents & Visas</h4>
+            <p class="tip-short">Always check visa requirements 3 months before travel.</p>
+            <p class="tip-more hidden">Ensure your passport is valid for at least 6 months beyond your travel date. Keep digital and physical copies of all documents. Research eVisa options to save time at borders. Store emergency contacts and embassy numbers offline.</p>
+            <span class="tip-toggle">Read more <i class="fas fa-chevron-down"></i></span>
+          </div>
+        </div>
+        <div class="tip-card" onclick="toggleTip(this)">
+          <div class="tip-icon"><i class="fas fa-suitcase"></i></div>
+          <div class="tip-content">
+            <h4>Packing Smart</h4>
+            <p class="tip-short">Pack light — you can always buy what you forgot.</p>
+            <p class="tip-more hidden">Use packing cubes to organize. Wear your heaviest items on the plane. Roll clothes instead of folding. Pack a universal adapter and a portable charger. Always carry a change of clothes in your carry-on.</p>
+            <span class="tip-toggle">Read more <i class="fas fa-chevron-down"></i></span>
+          </div>
+        </div>
+        <div class="tip-card" onclick="toggleTip(this)">
+          <div class="tip-icon"><i class="fas fa-coins"></i></div>
+          <div class="tip-content">
+            <h4>Budget Travel</h4>
+            <p class="tip-short">Book flights mid-week — Tuesday & Wednesday are cheapest.</p>
+            <p class="tip-more hidden">Use incognito mode when searching flights to avoid price tracking. Travel shoulder season (April–May, Sept–Oct) for 30–50% savings. Use local SIM cards over roaming. Eat where locals eat — street food is often the best and cheapest.</p>
+            <span class="tip-toggle">Read more <i class="fas fa-chevron-down"></i></span>
+          </div>
+        </div>
+        <div class="tip-card" onclick="toggleTip(this)">
+          <div class="tip-icon"><i class="fas fa-heartbeat"></i></div>
+          <div class="tip-content">
+            <h4>Health & Safety</h4>
+            <p class="tip-short">Get travel insurance — it's your best investment.</p>
+            <p class="tip-more hidden">Visit a travel clinic 4–6 weeks before departure. Carry a basic first-aid kit. Use hand sanitizer frequently. Research local emergency numbers. Stay hydrated especially on long flights. Avoid tap water in countries with poor sanitation.</p>
+            <span class="tip-toggle">Read more <i class="fas fa-chevron-down"></i></span>
+          </div>
+        </div>
+        <div class="tip-card" onclick="toggleTip(this)">
+          <div class="tip-icon"><i class="fas fa-wifi"></i></div>
+          <div class="tip-content">
+            <h4>Staying Connected</h4>
+            <p class="tip-short">Download offline maps before you land.</p>
+            <p class="tip-more hidden">Use Google Maps offline mode. Download translation apps. Grab a local SIM at the airport. Use a VPN on public Wi-Fi. WhatsApp works in most countries for free calls. Consider a global eSIM for seamless connectivity.</p>
+            <span class="tip-toggle">Read more <i class="fas fa-chevron-down"></i></span>
+          </div>
+        </div>
+        <div class="tip-card" onclick="toggleTip(this)">
+          <div class="tip-icon"><i class="fas fa-camera"></i></div>
+          <div class="tip-content">
+            <h4>Photography Tips</h4>
+            <p class="tip-short">Golden hour (sunrise/sunset) gives the best shots.</p>
+            <p class="tip-more hidden">Always ask permission before photographing people. Use burst mode for action shots. Bring extra SD cards and batteries. Learn 3 basic composition rules: rule of thirds, leading lines, and framing. Back up photos daily to the cloud.</p>
+            <span class="tip-toggle">Read more <i class="fas fa-chevron-down"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TESTIMONIALS ─── -->
+  <section class="section testimonials-section">
+    <div class="container">
+      <div class="section-header light">
+        <span class="section-tag">Reviews</span>
+        <h2>What Travelers Say</h2>
+        <p>Real stories from real adventurers</p>
+      </div>
+      <div class="testimonials-carousel" id="testimonialsCarousel">
+        <div class="testimonial-track" id="testimonialTrack">
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p>"Wanderlust made planning our honeymoon in Bali so effortless. Every detail was perfect — from the villa to the sunset dinner. 10/10 would use again!"</p>
+            <div class="reviewer"><img src="https://i.pravatar.cc/50?img=47" alt="Sarah" /><div><strong>Sarah M.</strong><small>Bali, Indonesia</small></div></div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p>"The itinerary builder is a game changer. I planned a 14-day Europe trip in under an hour. Everything was organized beautifully and the trip was flawless."</p>
+            <div class="reviewer"><img src="https://i.pravatar.cc/50?img=12" alt="James" /><div><strong>James T.</strong><small>Europe Trip</small></div></div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p>"Amazing packages and great customer support. They handled everything — flights, hotels, even restaurant reservations. Will definitely book again!"</p>
+            <div class="reviewer"><img src="https://i.pravatar.cc/50?img=32" alt="Priya" /><div><strong>Priya K.</strong><small>Maldives</small></div></div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">★★★★☆</div>
+            <p>"Loved the destination guides and travel tips section. Saved me so much research time. The beach package was incredible value for money!"</p>
+            <div class="reviewer"><img src="https://i.pravatar.cc/50?img=25" alt="Carlos" /><div><strong>Carlos R.</strong><small>Thailand</small></div></div>
+          </div>
+        </div>
+        <div class="carousel-controls">
+          <button onclick="moveCarousel(-1)"><i class="fas fa-chevron-left"></i></button>
+          <button onclick="moveCarousel(1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── NEWSLETTER ─── -->
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="newsletter-box">
+        <div class="newsletter-text">
+          <i class="fas fa-envelope-open-text"></i>
+          <h2>Get Travel Deals & Inspiration</h2>
+          <p>Subscribe and be the first to know about exclusive offers, hidden gems, and travel guides.</p>
+        </div>
+        <div class="newsletter-form">
+          <input type="email" id="newsletterEmail" placeholder="Enter your email address" />
+          <button class="btn-primary" onclick="subscribeNewsletter()">Subscribe <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CONTACT ─── -->
+  <section class="section contact-section" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Get in Touch</span>
+        <h2>Contact Us</h2>
+        <p>Our travel experts are ready to help you plan your perfect trip</p>
+      </div>
+      <div class="contact-wrapper">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+            <div><strong>Call Us</strong><p>+1 (800) 555-TRAVEL</p></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+            <div><strong>Email Us</strong><p>hello@wanderlust.travel</p></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-clock"></i></div>
+            <div><strong>Working Hours</strong><p>Mon–Sat · 9AM–8PM EST</p></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div><strong>Office</strong><p>123 Travel Street, New York, NY</p></div>
+          </div>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <form class="contact-form card" onsubmit="submitContact(event)">
+          <h3>Send a Message</h3>
+          <div class="form-row">
+            <div class="form-group"><label>First Name</label><input type="text" placeholder="John" required /></div>
+            <div class="form-group"><label>Last Name</label><input type="text" placeholder="Doe" required /></div>
+          </div>
+          <div class="form-group"><label>Email</label><input type="email" placeholder="john@example.com" required /></div>
+          <div class="form-group"><label>Subject</label>
+            <select required>
+              <option value="">Select a topic</option>
+              <option>Trip Planning</option>
+              <option>Package Enquiry</option>
+              <option>Booking Support</option>
+              <option>General Question</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Message</label><textarea rows="4" placeholder="Tell us about your dream trip..." required></textarea></div>
+          <button type="submit" class="btn-primary full-width">Send Message <i class="fas fa-paper-plane"></i></button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo"><i class="fas fa-paper-plane"></i><span>Wanderlust</span></div>
+          <p>Your trusted partner for unforgettable travel experiences since 2015. Making the world smaller, one adventure at a time.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-pinterest-p"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Destinations</h4>
+          <ul>
+            <li><a href="#">Europe</a></li>
+            <li><a href="#">Southeast Asia</a></li>
+            <li><a href="#">Caribbean</a></li>
+            <li><a href="#">Middle East</a></li>
+            <li><a href="#">South America</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#">Flight Booking</a></li>
+            <li><a href="#">Hotel Reservations</a></li>
+            <li><a href="#">Tour Packages</a></li>
+            <li><a href="#">Travel Insurance</a></li>
+            <li><a href="#">Visa Assistance</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Wanderlust Travel Planner. All rights reserved.</p>
+        <p>Crafted with <i class="fas fa-heart"></i> for explorers everywhere.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── BACK TO TOP ─── -->
+  <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- ─── TOAST ─── -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

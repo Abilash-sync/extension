@@ -51,6 +51,7 @@ expenseForm.addEventListener('submit', async (e) => {
   const description = document.getElementById('description').value;
   const amount = document.getElementById('amount').value;
   const date = document.getElementById('date').value;
+  const category = document.getElementById('category').value;
 
   try {
     const response = await fetch('/api/expenses', {
@@ -58,7 +59,7 @@ expenseForm.addEventListener('submit', async (e) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ description, amount, date })
+      body: JSON.stringify({ description, amount, date, category })
     });
 
     if (response.ok) {

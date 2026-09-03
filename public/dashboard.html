@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="container dashboard-container">
+    <header class="dashboard-header">
+      <div class="header-content">
+        <div>
+          <h1>📊 Expense Dashboard</h1>
+          <p class="header-subtitle">Your spending at a glance</p>
+        </div>
+        <nav class="header-nav">
+          <a href="/" class="nav-link">➕ Add Expense</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="dashboard-main">
+
+      <!-- KPI Cards -->
+      <section class="kpi-grid">
+        <div class="kpi-card kpi-total">
+          <div class="kpi-icon">💸</div>
+          <div class="kpi-body">
+            <span class="kpi-label">Total Spent</span>
+            <span class="kpi-value" id="kpiTotal">—</span>
+          </div>
+        </div>
+        <div class="kpi-card kpi-count">
+          <div class="kpi-icon">🧾</div>
+          <div class="kpi-body">
+            <span class="kpi-label">Transactions</span>
+            <span class="kpi-value" id="kpiCount">—</span>
+          </div>
+        </div>
+        <div class="kpi-card kpi-avg">
+          <div class="kpi-icon">📈</div>
+          <div class="kpi-body">
+            <span class="kpi-label">Avg per Transaction</span>
+            <span class="kpi-value" id="kpiAvg">—</span>
+          </div>
+        </div>
+        <div class="kpi-card kpi-highest">
+          <div class="kpi-icon">🏆</div>
+          <div class="kpi-body">
+            <span class="kpi-label">Largest Expense</span>
+            <span class="kpi-value" id="kpiHighest">—</span>
+            <span class="kpi-sub" id="kpiHighestDesc">—</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Charts Row -->
+      <section class="charts-row">
+        <div class="chart-card chart-bar">
+          <h2 class="chart-title">Monthly Spending</h2>
+          <div class="chart-wrap">
+            <canvas id="monthlyChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card chart-doughnut">
+          <h2 class="chart-title">By Category</h2>
+          <div class="chart-wrap">
+            <canvas id="categoryChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bottom Row: Category Breakdown + Recent Activity -->
+      <section class="bottom-row">
+        <div class="panel category-panel">
+          <h2 class="panel-title">Category Breakdown</h2>
+          <ul class="category-list" id="categoryList">
+            <li class="skeleton-row"></li>
+            <li class="skeleton-row"></li>
+            <li class="skeleton-row"></li>
+          </ul>
+        </div>
+
+        <div class="panel recent-panel">
+          <h2 class="panel-title">Recent Transactions</h2>
+          <ul class="recent-list" id="recentList">
+            <li class="skeleton-row"></li>
+            <li class="skeleton-row"></li>
+            <li class="skeleton-row"></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
